@@ -2,8 +2,8 @@ import slick.jdbc.PostgresProfile.api._
 
 import java.time.LocalDate
 
-class Customers(tag: Tag) extends Table[Customer](tag, "customer") {
-  def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+class CustomerTable(tag: Tag) extends Table[Customer](tag, "customer") {
+  def id = column[Option[Int]]("id", O.PrimaryKey, O.AutoInc)
   def fiscalCode = column[String]("fiscal_code")
   def name = column[Option[String]]("name")
   def surname = column[Option[String]]("surname")
@@ -19,5 +19,5 @@ class Customers(tag: Tag) extends Table[Customer](tag, "customer") {
   def gender = column[Option[String]]("gender")
   def isActive = column[Boolean]("is_active")
 
-  def * = (id.?, fiscalCode, name, surname, birthDate, cityOfBirth, countryOfBirth, cityOfResidence, streetOfResidence, regionOfResidence, countryOfResidence, email, phoneNumber, gender, isActive) <> (Customer.tupled, Customer.unapply)
+  def * = (id, fiscalCode, name, surname, birthDate, cityOfBirth, countryOfBirth, cityOfResidence, streetOfResidence, regionOfResidence, countryOfResidence, email, phoneNumber, gender, isActive) <> (Customer.tupled, Customer.unapply)
 }
